@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<html manifest="manifest.cache">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    *{
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+*,*:before,*:after{
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+nav,footer,header,aside{display: block;}
+
+html,body{
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+input,button,textarea{font-family:inherit;}
+
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+body{
+  font-size: 16px;
+}
+
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+  min-height: 100%; 
+  overflow: hidden;
+  padding: 0 0 0 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  margin: 0px auto;
+  height-top: auto;
+  padding: 0px 1%
+}
+
+.col {
+  display: inline-block;
+  -border: solid;
+  flex: 0 1 100%;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+}
+
+.footer {
+  font-size:7px;
+  padding: 4px 4px 4px 4px;
+}
+
+.visible {
+  visibility: hidden;
+}
+
+.button {
+  text-align: center;
+  padding: 10px 0 10px 0;
+  vertical-align: middle;
+  background-color: #FF8C00;
+  user-select: none;
+  border: solid;
+}
+
+.title {
+  text-align: center;
+  background-color: #90EE90;
+  user-select: none;
+  padding: 10px 0px 10px 0px;
+  border: solid;
+}
+
+.input{
+   padding: 10px 0px 10px 0px;
+   padding: 0px;
+   border: solid;
+}
+
+input{
+   width: 100%;
+   height: 36px;
+   padding: 4px 4px 4px 4px;
+   font-size:22px;
+}
+
+  </style>
+  <title>KWt/h</title>
+</head>
+<body onload="init()">
+  <div class="wrapper">
+    <div class="content">
+      <div class="row ">
+        <div class="col button" onclick="mode1f()">
+          Однофазный
+        </div>
+        <div class="col button" onclick="mode3f()">
+          Трехфазный
+        </div>
+       </div>
+       <div class="row">
+         <div class="col title">
+           <span>ТОК</span>
+         </div>
+         <div class="col title">
+           <span>УГОЛ</span>
+         </div>
+         <div class="col title">
+           <span>НАПР</span>
+         </div>
+         <div class="col title">
+           <span>об сч N</span>
+         </div>
+         <div class="col title">
+           <span>Тр. Ток</span>
+         </div>
+       </div>
+       <div class="row">
+           <div class="col input">
+             <input type="number" id="tok1" value="1.36" step="0.0001" oninput="calc()">
+           </div>
+           <div class="col input">
+             <input type="number" id="ugol1" value="" step="0.0001" oninput="calc()">
+           </div>
+           <div class="col input">
+             <input type="number" id="napr1" value="234" step="0.0001" oninput="calc()">
+           </div>
+           <div class="col input">
+             <input type="number" id="obchn" value="1600" step="1" oninput="calc()">
+           </div>
+           <div class="col input">
+             <input type="number" id="trtok" value="1" step="0.0001" oninput="calc()">
+           </div>
+        </div>
+        <div class="row">
+           <div id='flag' class="col input f3">
+             <input type="number" id="tok2" value=" " step="0.0001" oninput="calc()">
+           </div>
+           <div class="col input f3">
+             <input type="number" id="ugol2" value="" step="0.0001" oninput="calc()">
+           </div>
+           <div class="col input f3">
+             <input type="number" id="napr2" value="220" step="0.0001" oninput="calc()">
+           </div>
+           <div class="col title">
+             <span>обор n</span>
+           </div>
+           <div class="col title">
+             <span>время</span>
+           </div>
+        </div>
+        <div class="row">
+           <div class="col input f3">
+             <input type="number" id="tok3" value="" step="0.0001" oninput="calc()">
+           </div>
+           <div class="col input f3">
+             <input type="number" id="ugol3" value="" step="0.0001" oninput="calc()">
+           </div>
+           <div class="col input f3">
+             <input type="number" id="napr3" value="220" step="0.0001" oninput="calc()">
+           </div>
+           <div class="col input">
+             <input type="number" id="oborn" value="20" step="0.0001" oninput="calc()">
+           </div>
+           <div class="col input">
+             <input type="number" id="vrem" value="10.57" step="0.0001" oninput="calc()">
+           </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <div class="col input">
+                <input type="text" id="wa" value="" step="0.0001" readonly>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col input">
+                <input type="text" id="kwt" value="" step="0.0001" readonly>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col input">
+                <input type="text" id="procent" value="" step="0.0001" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="row">
+              <div class="col title">
+                <span>обороты</span>
+              </div>
+              <div class="col title">
+                <span>время</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col input">
+                <input type="text" id="obor" value="" readonly>
+              </div>
+              <div class="col input">
+                <input type="number" id="vrem2" value="30" step="0.0001">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="raw">
+          <div class="col">
+            <span class="footer">Разработчик: Красноперов Константин Сергеевич, krasnoperovkonstantin@gmail.com, 2020г.</span>
+          </div>
+        </div>
+     </div>
+  </div>
+
+  <script>
+    function mode1f() {
+    var elements = document.getElementsByClassName('f3');
+    for (i = 0; i < elements.length; i++) {
+        elements[i].classList.add('visible');
+    }
+    calc()
+}
+
+function mode3f() {
+    var elements = document.getElementsByClassName('f3');
+    for (i = 0; i < elements.length; i++) {
+        elements[i].classList.remove('visible');
+    }
+    calc()
+}
+
+function getCosDeg(deg) {
+  var rad = deg * Math.PI/180;
+  return Math.cos(rad);
+}
+
+function init() {
+ calc() ;
+ mode1f()
+}
+
+function calc() {
+  if(document.getElementById('flag').classList.contains('visible')){
+    var wa =document.getElementById("tok1").value * document.getElementById("napr1").value * getCosDeg(document.getElementById("ugol1").value);
+  } else {
+    var wa = ((document.getElementById("tok1").value * document.getElementById("napr1").value * getCosDeg(document.getElementById("ugol1").value) + document.getElementById("tok2").value * document.getElementById("napr2").value * getCosDeg(document.getElementById("ugol2").value) +document.getElementById("tok3").value * document.getElementById("napr3").value * getCosDeg(document.getElementById("ugol3").value)) / document.getElementById("trtok").value);
+  }
+  var kwt = (3600 * document.getElementById("oborn").value / (document.getElementById("obchn").value * document.getElementById("vrem").value));
+  var procent = ((kwt * 1000 - wa) / wa * 100);
+  var obor = document.getElementById("obchn").value * document.getElementById("vrem2").value/3600*wa/1000;
+  document.getElementById("wa").value = wa.toFixed(2) + ' ВА';
+  document.getElementById("kwt").value = kwt.toFixed(6) + ' кВт';
+  document.getElementById("procent").value = procent.toFixed(6) + ' %';
+  document.getElementById("obor").value = obor.toFixed(1);
+}
+  </script>
+</body>
+
+</html>
